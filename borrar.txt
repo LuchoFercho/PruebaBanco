@@ -1,0 +1,4 @@
+May 06, 2021 6:09:27 AM com.almworks.sqlite4java.Internal log
+SEVERE: [sqlite] SQLiteQueue[shared-local-instance.db]: error running job queue
+com.almworks.sqlite4java.SQLiteException: [14] unable to open database file
+at com.almworks.sqlite4java.SQLiteConnection.open0(SQLiteConnection.java:1480)
