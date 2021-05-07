@@ -12,10 +12,7 @@ ENV PYTHONUNBUFFERED=1
 # Install pip requirements
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
-# RUN apt-get update
-# RUN apt install openjdk-13-jre-headless
-# RUN pip3 install awscli --upgrade --user
-# RUN sudo apt install awscli
+
 
 WORKDIR /app
 COPY . /app

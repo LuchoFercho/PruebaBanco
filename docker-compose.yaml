@@ -1,46 +1,37 @@
 version: '3.8'
 services:
   dynamodb-local:
-    command: "-jar DynamoDBLocal.jar -sharedDb" #-optimizeDbBeforeStartup -dbPath ./data"
-    # java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+    # Con este comando se activa la base de datos en el contenedor
+    command: "-jar DynamoDBLocal.jar -sharedDb"
+    # Se descarga la imagen de base de datos local DynamoDB
     image: "amazon/dynamodb-local:latest"
+    # Se agrega un nombre para reconocer este contenedor ya que con este nombre
+    # se llamara desde el contendor de la app-python
     hostname: dynamodb-local
+    # Se nombra este contenedor
     container_name: dynamodb-local
+    # El servicio correra tanto dentro del contenedor como fuera de el por el puerto 8000
     ports:
       - "8000:8000"
     volumes:
       - "./docker/dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
-  # app-node:
-  #   depends_on:
-  #     - dynamodb-local
-  #   image: banst/awscli
-  #   container_name: app-node
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     AWS_ACCESS_KEY_ID: 'AKIAYSBMQCN7NPTKWMM4'
-  #     AWS_SECRET_ACCESS_KEY: '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'
-  #   command:
-  #     dynamodb describe-limits --endpoint-url http://dynamodb-local:8000 --region sa-east-1
+
   app-python:
     image: prueba30:latest
     container_name: app-python
     ports:
       - "4000:4000"
+    # Esta imagne prueba30 se contruyo previamente con el archivo Dockerfile y depende de dynamodb-local
     depends_on:
       - "dynamodb-local"
     links:
       - "dynamodb-local"
+    # Se agrega el valor a las variables de entorno correspondientes para acceder
+    # a la base de datos DynamoDB que aunque se encuentra local, necesita de aws client
     environment:
       AWS_ACCESS_KEY_ID: 'AKIAYSBMQCN7NPTKWMM4'
       AWS_SECRET_ACCESS_KEY: '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'
       DEFAULT_REGION_NAME: 'sa-east-1'
-    # command:
-    #   dynamodb describe-limits --endpoint-url http://dynamodb-local:8000 --region sa-east-1
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://dynamodb-local:8000"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 5
+
 
