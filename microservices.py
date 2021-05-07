@@ -42,38 +42,8 @@ class User(Resource):
         response=crud_dynamo_banc(accion,userid,username,age)
         return response
 
-        # else:
-        #     salida = crud_dynamo_banc(accion,userid,username,100)
-        #     print("")
-        #     return str(salida['Item'])
+ 
 
-
-
-
-        
-        # if args['tipoArchivo'] == '1' or args['tipoArchivo'] == None:
-        #     try:
-        #         json = fuzz_search.fuzzy_response('../' + args['ef'])
-
-        #         json['nit'] = args['nit']
-        #         json['periodo'] = args['periodo']
-        #         return json
-        #     except Exception as error:
-        #         print('|ERROR|',error)
-        #         return r_500
-
-        # elif args['tipoArchivo'] == '2':
-        #     try:
-        #         json = fuzzy_rest_2column.fuzzy_response(
-        #             '../' + args['ef'], args['nc'])
-        #     except Exception as error:
-        #         print('|ERROR|',error)
-        #         return r_500
-
-        # else:
-        #     return r_400
-
-
-api.add_resource(User, "/path")
+api.add_resource(User, "/")
 
 app.run(debug=True, port=4000, host='0.0.0.0')
