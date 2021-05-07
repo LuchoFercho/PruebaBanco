@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  dynamodb-local:
+    command: "-jar DynamoDBLocal.jar -sharedDb" #-optimizeDbBeforeStartup -dbPath ./data"
+    # java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+    image: "amazon/dynamodb-local:latest"
+    hostname: dynamodb-local
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+  # app-node:
+  #   depends_on:
+  #     - dynamodb-local
+  #   image: banst/awscli
+  #   container_name: app-node
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     AWS_ACCESS_KEY_ID: 'AKIAYSBMQCN7NPTKWMM4'
+  #     AWS_SECRET_ACCESS_KEY: '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'
+  #   command:
+  #     dynamodb describe-limits --endpoint-url http://dynamodb-local:8000 --region sa-east-1
+  app-python:
+    image: prueba30:latest
+    container_name: app-python
+    ports:
+      - "4000:4000"
+    depends_on:
+      - "dynamodb-local"
+    links:
+      - "dynamodb-local"
+    environment:
+      AWS_ACCESS_KEY_ID: 'AKIAYSBMQCN7NPTKWMM4'
+      AWS_SECRET_ACCESS_KEY: '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'
+      DEFAULT_REGION_NAME: 'sa-east-1'
+    # command:
+    #   dynamodb describe-limits --endpoint-url http://dynamodb-local:8000 --region sa-east-1
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://dynamodb-local:8000"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 5
+

@@ -3,10 +3,8 @@ import boto3
 
 def create_users_table(dynamodb=None):
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000",
+        dynamodb = boto3.resource('dynamodb',endpoint_url="http://dynamodb-local:8000",
                                     region_name="sa-east-1")
-                                    # aws_access_key_id="AKIAYSBMQCN7NPTKWMM4",
-                                    # aws_secret_access_key="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")
 
     table = dynamodb.create_table(
         TableName='Users',

@@ -8,10 +8,7 @@ from CreateUsersTable import create_users_table
 def put_user(userid, username, age, dynamodb=None):
     # coneccion a la base de datos utilizando boto3
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000",
-                                    region_name="sa-east-1",
-                                    aws_access_key_id="AKIAYSBMQCN7NPTKWMM4",
-                                    aws_secret_access_key="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")
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://dynamodb-local:8000",region_name="sa-east-1")
 
     table = dynamodb.Table('Users')
     response = table.put_item(
@@ -28,7 +25,7 @@ def put_user(userid, username, age, dynamodb=None):
 # Funcion para leer elementos de la tabla Users
 def get_user(userid, username, dynamodb=None):
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://dynamodb-local:8000",region_name="sa-east-1")
 
     table = dynamodb.Table('Users')
 
@@ -43,7 +40,7 @@ def get_user(userid, username, dynamodb=None):
 # Funcion para actualizar elementos de la tabla Users
 def update_user(userid, username, age, dynamodb=None):
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://dynamodb-local:8000",region_name="sa-east-1")
 
     table = dynamodb.Table('Users')
 
@@ -64,7 +61,7 @@ def update_user(userid, username, age, dynamodb=None):
 # Funciono para eliminar elementos de la tabla Users
 def delete_user(userid, username, dynamodb=None):
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://dynamodb-local:8000",region_name="sa-east-1")
 
     table = dynamodb.Table('Users')
 
