@@ -30,8 +30,8 @@ services:
     # Se agrega el valor a las variables de entorno correspondientes para acceder
     # a la base de datos DynamoDB que aunque se encuentra local, necesita de aws client
     environment:
-      AWS_ACCESS_KEY_ID: 'AKIAYSBMQCN7NPTKWMM4'
-      AWS_SECRET_ACCESS_KEY: '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'
-      DEFAULT_REGION_NAME: 'sa-east-1'
+      AWS_ACCESS_KEY_ID: '####################'
+      AWS_SECRET_ACCESS_KEY: '#########################################'
+      DEFAULT_REGION_NAME: '########'
 
 
